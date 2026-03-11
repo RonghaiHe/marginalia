@@ -1,5 +1,10 @@
 pref-title = Marginalia 设置
 
+pref-provider-section = 提供商
+pref-provider-label = 提供商：
+pref-provider-openai = OpenAI 兼容
+pref-provider-copilot = GitHub Copilot
+
 pref-api-config = API 配置
 pref-api-url = API 地址：
 pref-api-key = API 密钥：
@@ -33,4 +38,20 @@ pref-fill-all-fields = 请填写所有 API 配置项
 pref-enable-vision = 图片识别
 pref-enable-vision-hint = 仅支持多模态大模型（如 GPT-4o、Claude 3、Gemini 等），请确认您的模型支持视觉能力后再勾选
 
+pref-copilot-settings = GitHub Copilot
+pref-copilot-status-label = 登录状态：
+pref-copilot-status-loggedin = ✓ 已登录
+pref-copilot-status-not-loggedin = 未登录
+pref-copilot-login =
+    .label = 使用 GitHub 登录
+pref-copilot-logout =
+    .label = 退出登录
+pref-copilot-model-label = 模型：
+pref-copilot-login-waiting = 等待 GitHub 授权中…
+pref-copilot-login-success = ✓ GitHub Copilot 登录成功！
+pref-copilot-login-error = ✗ 登录失败：{ $error }
+pref-copilot-logout-success = GitHub Copilot 凭据已清除。
+pref-copilot-not-configured = GitHub Copilot 未配置，请先登录。
+
 pref-help = { $name } Build { $version } { $time }
+

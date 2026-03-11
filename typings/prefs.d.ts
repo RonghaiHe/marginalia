@@ -13,6 +13,10 @@ declare namespace _ZoteroTypes {
       "maxHistoryRounds": number;
       "systemPrompt": string;
       "enableVision": boolean;
+      "provider": string;
+      "githubToken": string;
+      "copilotModel": string;
+      "copilotTokenCache": string;
     };
   }
 }

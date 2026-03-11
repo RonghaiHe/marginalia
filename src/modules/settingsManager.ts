@@ -1,6 +1,10 @@
+import { APIConfig } from "./apiClient";
+import { copilotProvider } from "./githubCopilotProvider";
 import { StorageManager } from "./storageManager";
 
 const PREF_PREFIX = "extensions.zotero.marginalia";
+
+export type ProviderType = "openai" | "copilot";
 
 export class SettingsManager {
   private storage: StorageManager;
@@ -21,7 +25,23 @@ export class SettingsManager {
     Zotero.Prefs.set(`${PREF_PREFIX}.${key}`, value, true);
   }
 
-  async getAPIConfig() {
+  // ─── Provider ─────────────────────────────────────────────────────────────
+
+  getProvider(): ProviderType {
+    const val = this.getPref("provider");
+    return val === "copilot" ? "copilot" : "openai";
+  }
+
+  setProvider(provider: ProviderType) {
+    this.setPref("provider", provider);
+  }
+
+  // ─── API config (unified, provider-aware) ─────────────────────────────────
+
+  async getAPIConfig(): Promise<APIConfig> {
+    if (this.getProvider() === "copilot") {
+      return copilotProvider.getAPIConfig();
+    }
     const url = this.getPref("apiUrl");
     const apiKey = this.getPref("apiKey");
     const model = this.getPref("model");

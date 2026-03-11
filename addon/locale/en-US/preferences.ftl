@@ -1,5 +1,10 @@
 pref-title = Marginalia Settings
 
+pref-provider-section = Provider
+pref-provider-label = Provider:
+pref-provider-openai = OpenAI Compatible
+pref-provider-copilot = GitHub Copilot
+
 pref-api-config = API Configuration
 pref-api-url = API URL:
 pref-api-key = API Key:
@@ -33,4 +38,20 @@ pref-fill-all-fields = Please fill in all API configuration fields
 pref-enable-vision = Enable Vision (Image Recognition)
 pref-enable-vision-hint = Only works with multimodal models (e.g. GPT-4o, Claude 3, Gemini). Enable only if your model supports vision.
 
+pref-copilot-settings = GitHub Copilot
+pref-copilot-status-label = Status:
+pref-copilot-status-loggedin = ✓ Logged in
+pref-copilot-status-not-loggedin = Not logged in
+pref-copilot-login =
+    .label = Login with GitHub
+pref-copilot-logout =
+    .label = Logout
+pref-copilot-model-label = Model:
+pref-copilot-login-waiting = Waiting for GitHub authorization…
+pref-copilot-login-success = ✓ GitHub Copilot login successful!
+pref-copilot-login-error = ✗ Login failed: { $error }
+pref-copilot-logout-success = GitHub Copilot credentials cleared.
+pref-copilot-not-configured = GitHub Copilot is not configured. Please log in first.
+
 pref-help = { $name } Build { $version } { $time }
+

@@ -2,6 +2,7 @@ import { config } from "../../package.json";
 import { getString } from "../utils/locale";
 import { getPref, setPref } from "../utils/prefs";
 import { APIClient } from "./apiClient";
+import { copilotProvider } from "./githubCopilotProvider";
 import { SettingsManager } from "./settingsManager";
 import { StorageManager } from "./storageManager";
 
@@ -31,7 +32,7 @@ function bindPrefEvents() {
   const window = addon.data.prefs?.window;
   if (!window) return;
 
-  // 回显 enableVision checkbox 状态
+  // ── Vision checkbox ──────────────────────────────────────────────────────
   const enableVisionInput = window.document?.querySelector(
     "#marginalia-enableVision",
   ) as HTMLInputElement;
@@ -39,6 +40,53 @@ function bindPrefEvents() {
     enableVisionInput.checked = !!getPref("enableVision");
   }
 
+  // ── Provider dropdown ────────────────────────────────────────────────────
+  const providerSelect = window.document?.querySelector(
+    "#marginalia-provider",
+  ) as HTMLSelectElement;
+  if (providerSelect) {
+    const currentProvider = getPref("provider") || "openai";
+    providerSelect.value = currentProvider;
+    applyProviderUI(window, currentProvider);
+
+    providerSelect.addEventListener("change", () => {
+      const selected = providerSelect.value;
+      setPref("provider", selected as "openai" | "copilot");
+      applyProviderUI(window, selected);
+    });
+  }
+
+  // ── Copilot model select ─────────────────────────────────────────────────
+  const copilotModelSelect = window.document?.querySelector(
+    "#marginalia-copilotModel",
+  ) as HTMLSelectElement;
+  if (copilotModelSelect) {
+    const savedModel = getPref("copilotModel") || "gpt-4o";
+    copilotModelSelect.value = savedModel;
+
+    copilotModelSelect.addEventListener("change", () => {
+      setPref("copilotModel", copilotModelSelect.value);
+    });
+  }
+
+  // ── Copilot login / logout buttons ───────────────────────────────────────
+  const loginBtn = window.document?.querySelector(
+    "#marginalia-copilot-login",
+  ) as HTMLButtonElement;
+  loginBtn?.addEventListener("click", () => {
+    void handleCopilotLogin(window);
+  });
+
+  const logoutBtn = window.document?.querySelector(
+    "#marginalia-copilot-logout",
+  ) as HTMLButtonElement;
+  logoutBtn?.addEventListener("click", () => {
+    copilotProvider.clearGitHubToken();
+    updateCopilotStatus(window);
+    window.alert(getString("pref-copilot-logout-success"));
+  });
+
+  // ── OpenAI-compatible buttons ────────────────────────────────────────────
   const testBtn = window.document?.querySelector("#marginalia-test-connection");
   testBtn?.addEventListener("click", async () => {
     await testAPIConnection(window);
@@ -48,6 +96,86 @@ function bindPrefEvents() {
   saveBtn?.addEventListener("click", async () => {
     await saveSettings(window);
   });
+}
+
+/** Show/hide OpenAI vs Copilot fieldsets based on the chosen provider. */
+function applyProviderUI(window: Window, provider: string) {
+  const openaiSection = window.document?.querySelector(
+    "#marginalia-openai-section",
+  ) as HTMLElement;
+  const copilotSection = window.document?.querySelector(
+    "#marginalia-copilot-section",
+  ) as HTMLElement;
+
+  if (provider === "copilot") {
+    if (openaiSection) openaiSection.style.display = "none";
+    if (copilotSection) copilotSection.style.display = "";
+    updateCopilotStatus(window);
+  } else {
+    if (openaiSection) openaiSection.style.display = "";
+    if (copilotSection) copilotSection.style.display = "none";
+  }
+}
+
+/** Update the Copilot login status indicator. */
+function updateCopilotStatus(window: Window) {
+  const statusEl = window.document?.querySelector(
+    "#marginalia-copilot-status",
+  ) as HTMLElement;
+  if (!statusEl) return;
+
+  if (copilotProvider.isConfigured()) {
+    statusEl.setAttribute("data-l10n-id", "pref-copilot-status-loggedin");
+    statusEl.style.color = "#2a7a2a";
+  } else {
+    statusEl.setAttribute("data-l10n-id", "pref-copilot-status-not-loggedin");
+    statusEl.style.color = "#888";
+  }
+}
+
+/** GitHub Device Flow login, non-blocking via polling. */
+async function handleCopilotLogin(window: Window) {
+  const loginBtn = window.document?.querySelector(
+    "#marginalia-copilot-login",
+  ) as HTMLButtonElement;
+
+  const originalLabel =
+    loginBtn?.getAttribute("label") ||
+    getString("pref-copilot-login");
+  loginBtn?.setAttribute("label", getString("pref-copilot-login-waiting"));
+  loginBtn?.setAttribute("disabled", "true");
+
+  try {
+    const deviceCode = await copilotProvider.startDeviceFlow();
+
+    // Open the verification URL in the default browser
+    Zotero.launchURL(deviceCode.verification_uri);
+
+    // Show the user code in a dialog so the user knows what to enter
+    window.alert(
+      `GitHub Authorization\n\nVisit: ${deviceCode.verification_uri}\nEnter code: ${deviceCode.user_code}\n\nClick OK to continue waiting in the background.`,
+    );
+
+    const expiresAt = Date.now() + deviceCode.expires_in * 1000;
+    const githubToken = await copilotProvider.pollForAccessToken(
+      deviceCode.device_code,
+      deviceCode.interval,
+      expiresAt,
+    );
+
+    copilotProvider.setGitHubToken(githubToken);
+    updateCopilotStatus(window);
+    window.alert(getString("pref-copilot-login-success"));
+  } catch (error) {
+    window.alert(
+      getString("pref-copilot-login-error", {
+        args: { error: String(error) },
+      }),
+    );
+  } finally {
+    loginBtn?.setAttribute("label", originalLabel);
+    loginBtn?.removeAttribute("disabled");
+  }
 }
 
 async function testAPIConnection(window: Window) {

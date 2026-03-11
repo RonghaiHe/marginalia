@@ -3,14 +3,16 @@ export interface APIConfig {
   apiKey: string;
   model: string;
   temperature?: number;
+  /** Additional HTTP headers merged into every request (e.g. Copilot-specific headers). */
+  extraHeaders?: Record<string, string>;
 }
 
 export type ContentPart =
   | { type: "text"; text: string }
   | {
-      type: "image_url";
-      image_url: { url: string; detail?: "low" | "high" | "auto" };
-    };
+    type: "image_url";
+    image_url: { url: string; detail?: "low" | "high" | "auto" };
+  };
 
 export interface ToolCall {
   id: string;
@@ -156,6 +158,7 @@ export class APIClient {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${this.config.apiKey}`,
+        ...this.config.extraHeaders,
       },
       body: JSON.stringify(body),
       signal,
