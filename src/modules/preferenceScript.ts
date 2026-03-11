@@ -117,20 +117,31 @@ function applyProviderUI(window: Window, provider: string) {
   }
 }
 
-/** Update the Copilot login status indicator. */
+/** Update the Copilot login status indicator and button visibility. */
 function updateCopilotStatus(window: Window) {
   const statusEl = window.document?.querySelector(
     "#marginalia-copilot-status",
   ) as HTMLElement;
-  if (!statusEl) return;
+  const loginBtn = window.document?.querySelector(
+    "#marginalia-copilot-login",
+  ) as HTMLButtonElement;
+  const logoutBtn = window.document?.querySelector(
+    "#marginalia-copilot-logout",
+  ) as HTMLButtonElement;
 
-  if (copilotProvider.isConfigured()) {
-    statusEl.setAttribute("data-l10n-id", "pref-copilot-status-loggedin");
-    statusEl.style.color = "#2a7a2a";
-  } else {
-    statusEl.setAttribute("data-l10n-id", "pref-copilot-status-not-loggedin");
-    statusEl.style.color = "#888";
+  const loggedIn = copilotProvider.isConfigured();
+
+  if (statusEl) {
+    // Set textContent directly — Fluent won't re-translate a dynamically
+    // changed data-l10n-id, so we drive the text ourselves via getString().
+    statusEl.textContent = loggedIn
+      ? getString("pref-copilot-status-loggedin")
+      : getString("pref-copilot-status-not-loggedin");
+    statusEl.style.color = loggedIn ? "#2a7a2a" : "#888";
   }
+
+  if (loginBtn) loginBtn.style.display = loggedIn ? "none" : "";
+  if (logoutBtn) logoutBtn.style.display = loggedIn ? "" : "none";
 }
 
 /** GitHub Device Flow login, non-blocking via polling. */

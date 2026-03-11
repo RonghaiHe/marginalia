@@ -40,8 +40,10 @@ pref-enable-vision-hint = Only works with multimodal models (e.g. GPT-4o, Claude
 
 pref-copilot-settings = GitHub Copilot
 pref-copilot-status-label = Status:
-pref-copilot-status-loggedin = ✓ Logged in
-pref-copilot-status-not-loggedin = Not logged in
+pref-copilot-status-loggedin = 
+    .label = ✓ Logged in
+pref-copilot-status-not-loggedin = 
+    .label = ✗ Not logged in
 pref-copilot-login =
     .label = Login with GitHub
 pref-copilot-logout =

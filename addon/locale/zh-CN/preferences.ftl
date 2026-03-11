@@ -40,8 +40,10 @@ pref-enable-vision-hint = 仅支持多模态大模型（如 GPT-4o、Claude 3、
 
 pref-copilot-settings = GitHub Copilot
 pref-copilot-status-label = 登录状态：
-pref-copilot-status-loggedin = ✓ 已登录
-pref-copilot-status-not-loggedin = 未登录
+pref-copilot-status-loggedin = 
+    .label = ✓ 已登录
+pref-copilot-status-not-loggedin = 
+    .label = ✗ 未登录
 pref-copilot-login =
     .label = 使用 GitHub 登录
 pref-copilot-logout =
