@@ -5,7 +5,7 @@
   "description": "Zotero AI 聊天助手，支持与论文和批注进行智能对话",
   "config": {
     "addonName": "Marginalia AI Chat",
-    "addonID": "marginalia@anthropic+copilot.com",
+    "addonID": "marginalia@anthropic-copilot.com",
     "addonRef": "marginalia",
     "addonInstance": "Marginalia",
     "prefsPrefix": "extensions.zotero.marginalia"
