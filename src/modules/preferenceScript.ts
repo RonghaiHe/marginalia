@@ -153,8 +153,7 @@ async function handleCopilotLogin(window: Window) {
   const originalLabel =
     loginBtn?.getAttribute("label") ||
     getString("pref-copilot-login");
-  loginBtn?.setAttribute("label", getString("pref-copilot-login-waiting"));
-  loginBtn?.setAttribute("disabled", "true");
+  loginBtn?.setAttribute("label", getString("pref-copilot-login-again"));
 
   try {
     const deviceCode = await copilotProvider.startDeviceFlow();
