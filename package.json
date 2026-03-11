@@ -1,7 +1,7 @@
 {
   "name": "zotero-plugin-template",
   "type": "module",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "description": "Zotero AI 聊天助手，支持与论文和批注进行智能对话",
   "config": {
     "addonName": "Marginalia AI Chat",
@@ -31,8 +31,7 @@
   },
   "dependencies": {
     "katex": "^0.16.28",
-    "marked": "^17.0.2",
-    "zotero-plugin-toolkit": "^5.1.0-beta.13"
+    "marked": "^17.0.2"
   },
   "devDependencies": {
     "@types/chai": "^5.2.3",
@@ -45,6 +44,7 @@
     "prettier": "^3.7.4",
     "typescript": "^5.9.3",
     "zotero-plugin-scaffold": "^0.8.2",
+    "zotero-plugin-toolkit": "^5.1.2",
     "zotero-types": "^4.1.0-beta.4"
   },
   "prettier": {
