@@ -96,14 +96,15 @@ export class GitHubCopilotProvider {
 
   static getAvailableModels(): string[] {
     return [
-      "claude-sonnet-4.6",
-      "claude-sonnet-4.5",
-      "gpt-4o",
-      "gpt-4.1",
-      "gpt-4.1-mini",
-      "gpt-4.1-nano",
-      "o1",
-      "o3-mini",
+      "GPT-5 mini",
+      "GPT-4o",
+      "GPT-4.1",
+      "Raptor mini",
+      "Claude Haiku 4.5",
+      "Gemini 3 Flash",
+      "GPT-5.4 mini",
+      "Gemini 2.5 Pro",
+      "Gemini 3.1 Pro",
     ];
   }
 
