@@ -12,13 +12,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sheny-bio/marginalia.git"
+    "url": "git+https://github.com/RonghaiHe/marginalia.git"
   },
-  "author": "sheny-bio",
+  "author": "RonghaiHe",
   "bugs": {
-    "url": "https://github.com/sheny-bio/marginalia/issues"
+    "url": "https://github.com/RonghaiHe/marginalia/issues"
   },
-  "homepage": "https://github.com/sheny-bio/marginalia#readme",
+  "homepage": "https://github.com/RonghaiHe/marginalia#readme",
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "start": "zotero-plugin serve",
