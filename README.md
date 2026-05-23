@@ -1,9 +1,23 @@
 # Marginalia ✨
 
-[![zotero target version](https://img.shields.io/badge/Zotero-7--8-green?style=flat-square&logo=zotero&logoColor=CC2936)](https://www.zotero.org)
+TODO:
+- [x] 支持 Github Copilot
+- [x] 支持 Zotero 9
+- [x] 合并原作者2026.5.16的所有commit（有冲突，需要手动解决）
+- [ ] 支持自动添加模型名称并检查该模型是否存在，毕竟 Github Copilot的模型会随时间更新，不能每次都手动修改
+- [ ] 添加模型的rate，添加当前上下文的限制以及还剩下多少额度，这个等到切换计费模式后修改（2026.6月后）
+- [ ] 在首页查看marginalia窗口显示每篇文献的聊天历史而不是大家都一样
+- [ ] 切换文献后marginalia自动切换到对应文献的聊天历史，而不是保持同一个
+- [ ] 支持添加其他文献进行参考，目前只是添加文献库且只能添加一个文献库，主要是可扩展性较差，只能手动修改文献库来适应
+- [ ] 检查能否**递归**读笔记，不能就改
+- [ ] 窗口扩展后自动调整窗口大小，目前是固定的（好像其他都也是固定的）
+
+---
+
+[![zotero target version](https://img.shields.io/badge/Zotero-9-green?style=flat-square&logo=zotero&logoColor=CC2936)](https://www.zotero.org)
 [![Using Zotero Plugin Template](https://img.shields.io/badge/Using-Zotero%20Plugin%20Template-blue?style=flat-square&logo=github)](https://github.com/windingwind/zotero-plugin-template)
 
-Marginalia 是一个为 Zotero 7-8 设计的 AI 阅读助手，帮助你更高效地阅读、翻译和理解学术论文。
+Marginalia 是一个为 Zotero 9 设计的 AI 阅读助手，帮助你更高效地阅读、翻译和理解学术论文。
 
 > **兼容所有 OpenAI 兼容 API** — OpenAI / Claude / DeepSeek / 国产大模型均可使用
 
@@ -13,12 +27,12 @@ Marginalia 是一个为 Zotero 7-8 设计的 AI 阅读助手，帮助你更高�
 
 |     | 特性              | 说明                                              |
 | --- | ----------------- | ------------------------------------------------- |
-| 📖  | **划词翻译**      | 选中 PDF 文字一键翻译，结果浮窗显示，不打断阅读   |
-| 💬  | **AI 论文对话**   | 基于论文全文上下文与 AI 对话，支持流式实时响应    |
-| 📌  | **引用提问**      | 收集关键段落作为引用，让 AI 精准聚焦原文回答      |
-| 📚  | **文献目录联动**  | 关联 Zotero 文献目录，AI 可主动搜索并引用相关文献 |
-| 🗂️  | **对话管理**      | 历史按论文保存、导出 Markdown、复制消息、轮数限制 |
-| 🔌  | **智能 API 探测** | 自动识别 API 端点格式，填写任意格式 URL 均可连通  |
+| 📖   | **划词翻译**      | 选中 PDF 文字一键翻译，结果浮窗显示，不打断阅读   |
+| 💬   | **AI 论文对话**   | 基于论文全文上下文与 AI 对话，支持流式实时响应    |
+| 📌   | **引用提问**      | 收集关键段落作为引用，让 AI 精准聚焦原文回答      |
+| 📚   | **文献目录联动**  | 关联 Zotero 文献目录，AI 可主动搜索并引用相关文献 |
+| 🗂️   | **对话管理**      | 历史按论文保存、导出 Markdown、复制消息、轮数限制 |
+| 🔌   | **智能 API 探测** | 自动识别 API 端点格式，填写任意格式 URL 均可连通  |
 
 ---
 
@@ -103,7 +117,7 @@ Marginalia 是一个为 Zotero 7-8 设计的 AI 阅读助手，帮助你更高�
 
 ## 🌟 兼容性
 
-- **Zotero 版本**: 支持 Zotero 7 和 Zotero 8
+- **Zotero 版本**: 支持 Zotero 9
 - **API 兼容**: 支持所有 OpenAI 兼容的 API（OpenAI、Claude、国产大模型等）
 
 ## 📄 许可证
